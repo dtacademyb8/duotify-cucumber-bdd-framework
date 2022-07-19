@@ -43,6 +43,7 @@ Feature: User login feature
     Given I have 105 cucumbers
     When I add 50 more and change the weight to 1.8 pounds
     Then I should have 155 cucumbers
+    Given I have 5 pounds of cucumbers of type "Cuke" that cost me 5.99 dollars
 
 
 

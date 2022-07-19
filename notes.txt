@@ -1,0 +1,24 @@
+For Cucumber framework we will need the following 3 dependencies:
+cucumber-java, cucumber-core, cucumber-junit
+
+In Cucumber framework:
+  - the test scenarios are put in a feature file which are usually are created under resources folder
+  - the feature file scenario steps are connected to step definitions through @CucumberOptions glue option in Runner class
+      // Cucumber scenario step is matched to step definition method using the text of the scenario step
+      // either with Regular Expressions or Cucumber Expressions
+  - tags are the main way to control what scenario or feature files
+  - Background -> the common steps for ALL scenarios of a feature file can be moved to Background steps
+  - Hooks -> Step definition methods annotated with @Before and @After that are executed before/after each SCENARIO
+             The annotated methods can be added into any class under Step Definitions folder but usually added into a separate class
+
+
+  Cucumber parametrized step enables the step to be used multiple times with different sets of data and prevents multiple step snippet generation
+
+  Cucumber automatically converts matching types(String,int, double) from scenario step into corresponding parameter({string},{int},{double}) and adds it to a snippet method as a parameter:
+  Ex:
+      Scenario Step:           Given I have 5 pounds of cucumbers of type "Cuke" that cost me 5.99 dollars
+
+      Generated snippet:        @Given("I have {int} pounds of cucumbers of type {string} that cost me {double} dollars")
+                                public void i_have_pounds_of_cucumbers_of_type_that_cost_me_dollars(Integer int1, String string, Double double1) {
+
+                                }
