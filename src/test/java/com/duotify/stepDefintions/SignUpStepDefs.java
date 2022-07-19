@@ -19,7 +19,7 @@ public class SignUpStepDefs {
 
     @Given("I am on the homepage")
     public void i_am_on_the_homepage() {
-
+        System.out.println("Background step");
         Driver.getDriver().get(ConfigReader.getProperty("url"));
 
     }
@@ -54,7 +54,7 @@ public class SignUpStepDefs {
     }
     @Then("I should not be able to sign up")
     public void i_should_not_be_able_to_sign_up() {
-        Assert.assertNotEquals("http://qa-duotify.us-east-2.elasticbeanstalk.com/browse.php?", Driver.getDriver().getCurrentUrl());
+        Assert.assertEquals("http://qa-duotify.us-east-2.elasticbeanstalk.com/browse.php?", Driver.getDriver().getCurrentUrl());
 
     }
 

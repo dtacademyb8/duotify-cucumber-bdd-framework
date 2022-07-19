@@ -18,6 +18,12 @@ public class HomePage {
     @FindBy (id = "username")
     private WebElement username;
 
+    @FindBy (id = "loginUsername")
+    public WebElement usernameLogin;
+
+    @FindBy (id = "loginPassword")
+    public WebElement passwordLogin;
+
     @FindBy (id = "firstName")
     private WebElement first;
 
