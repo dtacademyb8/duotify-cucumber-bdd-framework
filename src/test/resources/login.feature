@@ -49,6 +49,20 @@ Feature: User login feature
 
 
 
+    @so
+  Scenario Outline: Registered user login positive scenario outline
+    When I enter "<username>" as a username and "<password>" as password
+    Then I should be able to login successfully and the name should be "<name>"
+
+    Examples: valid user credentials
+      | username    | password  | name            |
+      | lara.alissa | lara12345 | Lara Alissa     |
+      | duotechb8   | duotechb8 | Duotech Academy |
+      | janedoe     | janedoe   | Jane Doe        |
+      | johndoe     | johndoe   | John Doe        |
+      | magdalena   | magdalena | Magdalena Nitek |
+
+
 
 
 
