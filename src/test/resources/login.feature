@@ -14,7 +14,7 @@ Feature: User login feature
     Then I should be able to login successfully
 
 
-  @login
+  @login1
   Scenario: Registered user login positive parametrized
     When I enter "lara.alissa" as a username and "lara12345" as password
     Then I should be able to login successfully

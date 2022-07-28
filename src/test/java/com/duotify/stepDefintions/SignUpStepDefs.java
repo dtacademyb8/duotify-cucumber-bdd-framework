@@ -12,6 +12,10 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 public class SignUpStepDefs {
 
@@ -69,6 +73,89 @@ public class SignUpStepDefs {
                 "",
                 "");
     }
+
+    @When("I navigate to signup page")
+    public void i_navigate_to_signup_page() {
+        HomePage homePage = new HomePage();
+        homePage.clickOnSignUpPageLink();
+    }
+    @When("I enter the following credentials")
+    public void i_enter_the_following_credentials(List<List<String>> dataTable) {
+
+      List<String > secondRow =  dataTable.get(1);
+        System.out.println(dataTable);
+        new HomePage().enterCredentialsAndClick(secondRow.get(0),
+                secondRow.get(1),
+                secondRow.get(2),
+                secondRow.get(3),
+                secondRow.get(4));
+
+    }
+
+
+
+    @When("I enter the following credentials as list of maps")
+    public void i_enter_the_following_credentials_as_list_of_maps(List<Map<String, String>> dataTable) {
+        System.out.println(dataTable);
+
+       Map<String,String> map = dataTable.get(0);
+
+        new HomePage().enterCredentialsAndClick(map.get("username"),
+                map.get("firstname"),
+                map.get("lastname"),
+                map.get("email"),
+                map.get("password"));
+    }
+
+
+
+    @When("I pass this information as list of maps")
+    public void i_pass_this_information_as_list_of_maps(List<Map<String, String>> dataTable) {
+
+        System.out.println(dataTable);
+
+        System.out.println(dataTable.get(1).get("lastName"));
+    }
+
+
+    @When("I pass this information as maps")
+    public void i_pass_this_information_as_maps(Map<String,String> dataTable) {
+
+        System.out.println(dataTable);
+        System.out.println(dataTable.get("KSFO"));
+    }
+
+    @When("I pass this information as map of <String, List<String>>")
+    public void i_pass_this_information_as_map_of_string_list_string(Map<String, List<String>> dataTable) {
+
+
+        System.out.println(dataTable);
+    }
+
+    @When("I pass this information as map of <String, Map<String,String>>")
+    public void i_pass_this_information_as_map_of_string_map_string_string(Map<String, Map<String, String>> dataTable) {
+
+
+        System.out.println(dataTable);
+
+        System.out.println(dataTable.get("KMSY").get("lon"));
+    }
+
+
+    @When("I pass this information as list")
+    public void i_pass_this_information_as_list(List<String> dataTable) {
+
+
+        System.out.println(dataTable.getClass());
+
+        List<String> modifieble = new ArrayList<>(dataTable);
+        Collections.sort(modifieble);
+
+        System.out.println(modifieble);
+    }
+
+
+
 
 
 
