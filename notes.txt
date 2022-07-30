@@ -214,3 +214,13 @@ In Cucumber framework:
                   <threadCount>6</threadCount>
 
                4.Run the tests thru command line
+
+
+
+
+               BDD - Behavior-Driven Development (Cucumber + Junit)
+               TDD - Test-Driven Development  (TestNG)
+
+
+
+               DDT - Data-Driven Testing

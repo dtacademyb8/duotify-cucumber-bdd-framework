@@ -159,7 +159,7 @@ Feature: User sign up feature
       | Joker3      | Joker  | Man  | joker3@gmail.com      | spiderman2022 |
 
 
-   @data_driven_csv
+   @data_driven_csv @smoke
   Scenario: Non-registered user signup data-driven testing using csv file
 
     When I navigate to signup page

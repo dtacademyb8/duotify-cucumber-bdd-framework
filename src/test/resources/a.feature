@@ -33,5 +33,62 @@ Feature: A feature
         | Escape              |
 
 
+  Scenario: A feature file scenario
+
+    When I navigate to signup page and enter valid credentials
+    Then I should be able to sign up successfully
+  Scenario: A feature file scenario
+
+    When I navigate to signup page and enter valid credentials
+    Then I should be able to sign up successfully
+  Scenario: A feature file scenario
+
+    When I navigate to signup page and enter valid credentials
+    Then I should be able to sign up successfully
+
+  Scenario: A feature file scenario
+
+    When I navigate to signup page and enter valid credentials
+    Then I should be able to sign up successfully
+
+
+  Scenario: A feature file scenario
+
+    When I navigate to signup page and enter valid credentials
+    Then I should be able to sign up successfully
+
+
+  Scenario: A feature file scenario
+
+    When I navigate to signup page and enter valid credentials
+    Then I should be able to sign up successfully
+
+  Scenario: A feature file scenario
+
+    When I navigate to signup page and enter valid credentials
+    Then I should be able to sign up successfully
+
+
+
+  Scenario: A feature file scenario
+
+    When I navigate to signup page and enter valid credentials
+    Then I should be able to sign up successfully
+
+
+
+  Scenario: A feature file scenario
+
+    When I navigate to signup page and enter valid credentials
+    Then I should be able to sign up successfully
+
+
+
+  Scenario: A feature file scenario
+
+    When I navigate to signup page and enter valid credentials
+    Then I should be able to sign up successfully
+
+
 
 
