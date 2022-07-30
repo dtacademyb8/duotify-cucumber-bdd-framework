@@ -22,3 +22,106 @@ In Cucumber framework:
                                 public void i_have_pounds_of_cucumbers_of_type_that_cost_me_dollars(Integer int1, String string, Double double1) {
 
                                 }
+
+
+
+
+
+
+     If you need to specify information in a scenario that won't fit on a single line, you can use a DocString. (""" """)
+       When you use a doctring make sure to put each triple quote on its own line.
+       Ex: Scenario: Example scenario for Database
+           When I send the following query
+             """
+                select first_name,last_name,email,address,district,city,country from customer
+                join address
+                on customer.address_id = address.address_id
+                join city
+                on address.city_id  = city.city_id
+                join country
+                on city.country_id = country.country_id;
+              """
+
+           What are some common Cucumber exceptions?
+
+           UndefinedStepException -  when a scenario step does not have matching step definition method
+
+           PendingException - default exception that added to each step definition snippet
+
+           AmbiguousStepDefinitionsException - this happens when one step has more than one matching step definitions
+
+           DuplicateStepDefinitionException - happens when there are more than one step definitions with the exactly matching text
+
+           CucumberException: Could not convert arguments for step [I pass this information] defined at - happens when setep definition parameter
+                              type does not match the datatable
+
+
+
+
+
+           Cucumber DataTable - a cucumber structure that enables table-style data to be passed from a SINGLE step of a Cucumber scenario
+                                into the step definition method
+
+             Example:           Given I am on homepage
+                                When I pass this information
+                                | John | Doe | 12/09/1999 | 235-345-1234 | 322-09-6322 | 123 Main St, Vienna VA 22056 |
+
+              The DataTable is added to the cucumber step definition method as a parameter, we simply need to replace it with corresponding
+              Java data structure for automatic transformation. The allowed types are List<E>, List<List<E>>, List<Map<K,V>>,
+               Map<K,V>  Map<K, List<V>> where E,K,V must be a String, Integer, Float, Double, Byte, Short, Long
+
+           When Cucumber converts the DataTable into corresponding Java data structures (List, Map), it creates
+           unmodifiable versions of these data structures. If you need to modify, you need to convert into a modifiable type
+
+           Running tests thru CMD in Cucumber Framework:
+
+
+
+           -Add Maven Surefire plugin (latest version)
+           - Configure it by including the name of the class to run:
+
+                              <configuration>
+                                   <includes>
+                                       <include>**/*CucumberRunner.java</include>
+                                   </includes>
+                               </configuration>
+
+           - run with mvn test
+
+           Running scenarios with specific tags thru cmd:
+
+           mvn verify -Dcucumber.filter.tags="@temp"
+           mvn verify -Dcucumber.filter.tags="@test and @temp"
+           mvn verify -Dcucumber.filter.tags="@test or @temp"
+           mvn verify -Dcucumber.filter.tags="@test and not @temp"
+
+           When you run your test through CMD using Maven, tags passed thru CMD will override the tags from CucumberRunner class.
+
+           In Cucumber framework we can implement data-driven testing natively with Scenario Outline with Examples table.
+
+           The difference between DataTable and Scenario Outline Examples table -> datatable belongs to one step of the scenario, examples table applies to the entire scenario
+
+           If we have a large a dataset it can also be read from an external file such as csv or excel file.
+           To read from excel file we use Apache POI library.
+
+           Cucumber comes with built-in Junit 4 by default and it does not have soft assertions. Hence we use AssertJ library to implement soft assertions:
+           Ex:
+
+                SoftAssertions softAssertions = new SoftAssertions();
+                softAssertions.assertThat( "actual").isEqualTo("expected");
+                softAssertions.assertAll();
+
+
+
+
+
+           @RunWith -> Junit annotation that makes the class a runnable class
+           @CucumberOptions -> Cucumber annotation that helps us configure cucumber options to run the tests
+
+
+
+
+      Maven Dependency vs Maven Plugin?
+
+      Maven Dependency -> Libraries that are needed to build our framework (Selenium, Faker, TestNG, Webdrivermanager ). They can do anything
+      Maven Plugin -> tools that do maven specific tasks such as clean, run tests, genrerate reports, etc.

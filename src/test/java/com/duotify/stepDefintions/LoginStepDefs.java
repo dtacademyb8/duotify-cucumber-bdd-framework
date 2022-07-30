@@ -79,4 +79,19 @@ public class LoginStepDefs {
 
     }
 
+
+    @When("I send the following {word}")
+    public void i_send_the_following_query() {
+
+//        System.out.println(docString);
+
+    }
+
+    @When("I send the following query")
+    public void i_send_the_following_dscddsy() {
+
+//        System.out.println(docString);
+
+    }
+
 }

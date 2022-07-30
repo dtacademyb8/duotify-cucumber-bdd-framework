@@ -1,16 +1,21 @@
 package com.duotify.stepDefintions;
 
 import com.duotify.pages.HomePage;
+import com.duotify.pages.WelcomePage;
+import com.duotify.utilities.CSVReader;
 import com.duotify.utilities.ConfigReader;
 import com.duotify.utilities.Driver;
+import com.duotify.utilities.SeleniumUtils;
 import com.github.javafaker.Faker;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,7 +28,7 @@ public class SignUpStepDefs {
 
     @Given("I am on the homepage")
     public void i_am_on_the_homepage() {
-        System.out.println("Background step");
+
         Driver.getDriver().get(ConfigReader.getProperty("url"));
 
     }
@@ -41,7 +46,11 @@ public class SignUpStepDefs {
     }
     @Then("I should be able to sign up successfully")
     public void i_should_be_able_to_sign_up_successfully() {
-        Assert.assertEquals("http://qa-duotify.us-east-2.elasticbeanstalk.com/browse.php?", Driver.getDriver().getCurrentUrl());
+//        Assert.assertEquals("http://qa-duotify.us-east-2.elasticbeanstalk.com/browse.php?", Driver.getDriver().getCurrentUrl());
+
+        SoftAssertions softAssertions = new SoftAssertions();
+        softAssertions.assertThat( Driver.getDriver().getCurrentUrl()).isEqualTo("http://qa-duotify.us-east-2.elasticbeanstalk.com/browse.php?");
+        softAssertions.assertAll();
     }
 
 
@@ -152,6 +161,39 @@ public class SignUpStepDefs {
         Collections.sort(modifieble);
 
         System.out.println(modifieble);
+    }
+
+
+
+    @Then("I read the signup information from csv file and enter the details and should be able to sign up successfully")
+    public void i_read_the_signup_information_from_csv_file_and_enter_the_details_and_should_be_able_to_sign_up_successfully() throws IOException {
+
+        SoftAssertions softAssertions = new SoftAssertions();
+        List<List<String>> data = CSVReader.readFromCSV("src/test/resources/testData/userData.csv");
+
+        for (List<String> each : data) {
+
+            new HomePage().enterCredentialsAndClick(each.get(0),
+                    each.get(1),
+                    each.get(2),
+                    each.get(3),
+                    each.get(4));
+
+
+            SeleniumUtils.waitFor(1);
+            softAssertions.assertThat( Driver.getDriver().getCurrentUrl()).isEqualTo("http://qa-duotify.us-east-2.elasticbeanstalk.com/browse.php?");
+
+
+            new WelcomePage().logout();
+            SeleniumUtils.waitFor(1);
+            new HomePage().clickOnSignUpPageLink();
+            SeleniumUtils.waitFor(1);
+
+        }
+
+        softAssertions.assertAll();
+
+
     }
 
 

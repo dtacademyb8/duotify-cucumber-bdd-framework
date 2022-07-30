@@ -39,7 +39,7 @@ Feature: User sign up feature
     Then I should be able to sign up successfully
 
 
-  Scenario: Non-registered user signup positive datatable list of lists
+  Scenario: Non-registered user signup positive datatable list of maps
 
     When I navigate to signup page
     And  I enter the following credentials as list of maps
@@ -133,6 +133,41 @@ Feature: User sign up feature
 
 
     Then I should not be able to sign up
+
+
+
+
+   @scenario_outline_with_datatable
+  Scenario Outline: Non-registered user signup positive datatable list of maps scenario outline
+
+    When I navigate to signup page
+    And  I enter the following credentials as list of maps
+      | username   | firstname | lastname | email   | password |
+      | <username> | <FIRST>   | <LAST>   | <EMAIL> | <PASS>   |
+    Then I should be able to sign up successfully
+
+
+    Examples:
+
+      | username   | FIRST  | LAST | EMAIL                | PASS          |
+      | spiderman3 | Spider | Man  | spiderman3@gmail.com | spiderman2022 |
+      | batman3     | Bat    | Man  | batman3@gmail.com     | spiderman2022 |
+      | robin3     | Robin  | Hood | robinhood3@gmail.com  | spiderman2022 |
+      | superman3   | Super  | Man  | superman3@gmail.com   | spiderman2022 |
+      | venom3      | Venom  | Man  | venom3@gmail.com      | spiderman2022 |
+      | peppapig3   | Peppa  | Pig  | peppapig3@gmail.com   | spiderman2022 |
+      | Joker3      | Joker  | Man  | joker3@gmail.com      | spiderman2022 |
+
+
+   @data_driven_csv
+  Scenario: Non-registered user signup data-driven testing using csv file
+
+    When I navigate to signup page
+    Then  I read the signup information from csv file and enter the details and should be able to sign up successfully
+
+
+
+
 
 
 
