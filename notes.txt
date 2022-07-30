@@ -123,5 +123,94 @@ In Cucumber framework:
 
       Maven Dependency vs Maven Plugin?
 
-      Maven Dependency -> Libraries that are needed to build our framework (Selenium, Faker, TestNG, Webdrivermanager ). They can do anything
+      Maven Dependency -> Libraries that are needed to build our framework (Selenium, Faker, TestNG, Webdrivermanager ). They can do anything, they don't have to do tasks specific to maven
       Maven Plugin -> tools that do maven specific tasks such as clean, run tests, genrerate reports, etc.
+
+
+      How to run a specific runner class thru CMD when you have multiple runners?
+            - Maven surefire plugin determines the name of the runner class to run within its <configuration>  and <includes> tag
+
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-surefire-plugin</artifactId>
+                            <version>3.0.0-M5</version>
+                            <configuration>
+
+                                <testFailureIgnore>true</testFailureIgnore>
+                                <includes>
+                                    <include>**/*CucumberRunner2.java</include>-->
+                                 </includes>
+                            </configuration>
+                        </plugin>
+
+            - When you have multiple runners you can use a placeholder in surefire plugin
+                and pass the name of the runner class thru command line with -D switch -> mvn verify -DrunnerClass=**/*CucumberRunner2.java
+
+                             <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-surefire-plugin</artifactId>
+                                <version>3.0.0-M5</version>
+                                <configuration>
+
+                                    <testFailureIgnore>true</testFailureIgnore>
+                                    <includes>
+
+                                        <include>${runnerClass}</include>-->
+
+                                    </includes>
+                                </configuration>
+                            </plugin>
+
+            - How to re-run only the failed scenarios in Cucumber framework?
+
+              1. Add "rerun:target/failed.txt" to your main runner class which generates a text file with the list of failed scenarios
+              2. Add another runner class where you indicate the above text file's path for features:
+                         features = "@target/failed.txt"
+              3. Run main runner and failed scenarios runner back to back thru Maven Surefire plugin:
+                   <plugin>
+                                 <groupId>org.apache.maven.plugins</groupId>
+                                 <artifactId>maven-surefire-plugin</artifactId>
+                                 <version>3.0.0-M5</version>
+                                 <configuration>
+
+                                     <testFailureIgnore>true</testFailureIgnore>
+                                     <includes>
+                                        <include>**/*CucumberRunner.java</include>-->
+                                         <include>**/*FailedScenariosRunner.java</include>-->
+                                     </includes>
+                                 </configuration>
+                   </plugin>
+
+               - How to run cross-browser tests in Cucumber framework?
+
+                 - We pass the name of the browser thru command line with -D switch and run the same tests with multiple commands
+                 - This can be done through batch/shell script file or through Jenkins commands
+                 - batch file example:
+                         call mvn verify -Dbrowser=edge
+                         call mvn verify -Dbrowser=chrome
+                         call mvn verify -Dbrowser=headlessChrome
+
+               We use "mvn verify" in Cucumber framework to run tests so that the pretty report is generated,
+                 otherwise you can run the tests as usual with mvn test
+
+              How to run tests in parallel in Cucumber framework?
+
+              We can enable parallel test in Cucumber natively with JUnit. But we need to remember that with this option
+              you can run only FEATURES in parallel.
+              If there is a need for running SCENARIOS in parallel, you can incorporate TestNG.
+
+              Steps to implement running parallel Features in Cucumber with Junit:
+               1.Give the scope of the feature files that you want to run in parallel in your runner class
+                    features = "src/test/resources"
+                 Optionally create a separate folder for feature files that you want to run in parallel and indicate that path
+                       features = "src/test/resources/parallel"
+
+               2.Add these 2 options under the <configuration> tag of Maven Surefire plugin:
+                      <parallel>methods</parallel>
+                      <useUnlimitedThreads>true</useUnlimitedThreads>
+
+               3. If you want to limit the threads:
+                 <parallel>methods</parallel>
+                  <threadCount>6</threadCount>
+
+               4.Run the tests thru command line
