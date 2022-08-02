@@ -21,7 +21,7 @@ public class Hooks {
           DBUtils.close();
     }
 
-    @Before ("not @db")
+    @Before   // runs before each scenario
     public void setup(){
 
 
@@ -39,7 +39,7 @@ public class Hooks {
 
 
 
-    @After ("not @db")
+    @After  // runs after each scenario
     public void tearDown(Scenario scenario){
 
         if(scenario.isFailed()){
