@@ -1,4 +1,4 @@
-package com.duotify.stepDefintions;
+package com.duotify.stepDefintions.ui;
 
 import com.duotify.pages.HomePage;
 import com.duotify.pages.WelcomePage;

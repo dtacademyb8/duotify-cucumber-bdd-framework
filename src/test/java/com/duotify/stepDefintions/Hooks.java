@@ -1,5 +1,6 @@
 package com.duotify.stepDefintions;
 
+import com.duotify.utilities.DBUtils;
 import com.duotify.utilities.Driver;
 import io.cucumber.java.*;
 import org.openqa.selenium.OutputType;
@@ -11,13 +12,13 @@ import java.time.Duration;
 public class Hooks {
 
     @BeforeAll   // runs once before all scenarios
-    public void setupDb(){
-
+    public static void setupDb(){
+        DBUtils.createConnection();
     }
 
     @AfterAll   // runs once after all scenarios have completed
-    public void close(){
-
+    public static void closeDB(){
+          DBUtils.close();
     }
 
     @Before ("not @db")
@@ -29,12 +30,12 @@ public class Hooks {
     }
 
 
-    @Before ("@db")
-    public void setupDB(){
-
-
-        System.out.println("Setting up DB");
-    }
+//    @Before ("@db")
+//    public void setupDB(){
+//
+//
+//        System.out.println("Setting up DB");
+//    }
 
 
 
@@ -52,11 +53,11 @@ public class Hooks {
         Driver.quitDriver();
     }
 
-    @After ("@db")
-    public void tearDownDB(){
-
-        System.out.println("Tearing doen db connection");
-    }
+//    @After ("@db")
+//    public void tearDownDB(){
+//
+//        System.out.println("Tearing doen db connection");
+//    }
 
 
 }

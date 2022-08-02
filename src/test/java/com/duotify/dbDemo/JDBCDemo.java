@@ -112,6 +112,14 @@ public class JDBCDemo {
         }
 
 
+        int i = statement.executeUpdate("UPDATE employees SET first_name='Asif', last_name='Hamzaev' where emp_no=10002");
+        System.out.println(i);
+
+//        statement.executeUpdate("INSERT INTO employees (emp_no, birth_date, first_name, last_name, gender, hire_date ) values (3, '2002-05-09', 'Lara', 'Alissa', 'M', '2022-09-01')");
+
+        statement.executeUpdate("DELETE from employees where emp_no=1");
+
+
         resultSet.close();
         statement.close();
         connection.close();

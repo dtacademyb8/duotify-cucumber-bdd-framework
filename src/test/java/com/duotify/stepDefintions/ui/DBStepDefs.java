@@ -1,4 +1,4 @@
-package com.duotify.stepDefintions;
+package com.duotify.stepDefintions.ui;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
