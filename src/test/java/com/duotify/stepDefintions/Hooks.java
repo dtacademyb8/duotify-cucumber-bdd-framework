@@ -1,9 +1,7 @@
 package com.duotify.stepDefintions;
 
 import com.duotify.utilities.Driver;
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
-import io.cucumber.java.Scenario;
+import io.cucumber.java.*;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
@@ -12,6 +10,15 @@ import java.time.Duration;
 
 public class Hooks {
 
+    @BeforeAll   // runs once before all scenarios
+    public void setupDb(){
+
+    }
+
+    @AfterAll   // runs once after all scenarios have completed
+    public void close(){
+
+    }
 
     @Before ("not @db")
     public void setup(){
