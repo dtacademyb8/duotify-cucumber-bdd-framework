@@ -224,3 +224,43 @@ In Cucumber framework:
 
 
                DDT - Data-Driven Testing
+
+
+
+
+
+
+
+
+               How do you test the DB?
+
+                        Can you explain your overall DB testing strategy?
+
+                        -Data Flow
+                        -Data Mapping
+                        -Business rules
+                        -Unit testing (verify column names, data types, ranges)
+                        -Performance/Security
+
+
+
+                        My database testing strategy consists of testing multiple aspects of the DB. I start with basic testing of the
+                        data flow from UI to DB and vice versa. I also verify the correct data mapping of the information for corresponding
+                        fields on the UI and columns in the DB. I also verify various business rules and logic related to the DB.
+
+
+                        Common database testing scenarios:
+                        Verify that data inserted from UI is reflected properly in the appropriate table and vice versa.
+                        Check for data integrity. Data should be stored in single or multiple tables based on design.
+                        Verify Table Schema, Column names as per Design Document
+                        Verify Unicode Support (e.g store Chinese/Japanese Characters)
+                        Check if input data is not truncated while saving. Field length shown to the user on a page and in database schema should be the same
+                        Check numeric fields with minimum, maximum, and float values
+                        Check numeric fields with negative values
+                        Check if database fields are designed with the correct data type and data length
+                        Check if all table constraints like a Primary key, Foreign key, etc. are implemented correctly
+                        Test stored procedures and triggers with sample input data
+                        Test if input field leading and trailing spaces are truncated before committing data to the database
+                        Check values for columns which are not accepting null values
+                        Null values should not be allowed for the Primary key column
+                        Checking for duplicates.

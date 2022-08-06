@@ -18,6 +18,9 @@ public class WelcomePage {
     @FindBy(id = "rafael")
     public WebElement logoutLink;
 
+    @FindBy(xpath = "//button[.='USER DETAILS']")
+    public WebElement userDetailsButton;
+
     public void logout(){
         username.click();
         logoutLink.click();

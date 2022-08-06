@@ -1,6 +1,7 @@
 package com.duotify.pages;
 
 import com.duotify.utilities.Driver;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -45,10 +46,25 @@ public class HomePage {
     @FindBy (name = "registerButton")
     private WebElement signUpButton;
 
+    @FindBy (id = "loginUsername")
+    private WebElement loginUsername;
+
+    @FindBy (id = "loginPassword")
+    private WebElement loginPassword;
+
+
+
 
     public void clickOnSignUpPageLink(){
         signUpPageLink.click();
     }
+
+
+    public void login(String username, String password){
+       loginUsername.sendKeys(username);
+        loginPassword.sendKeys(password + Keys.ENTER);
+    }
+
 
 
     public String getTitle(){

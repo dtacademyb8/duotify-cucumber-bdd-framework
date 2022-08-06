@@ -18,10 +18,10 @@ Feature: Data mapping scenarios
 
 
 
-
-  Scenario: New User Creation from DB to UI flow
-    Given I am connected to the DB
+  @data_mapping_db_to_ui
+  Scenario: New User Creation, verify data mapping DB to UI flow
     When I add a new user to the database with the following info
-      |username| first | last | email | password|
-      |daisyduck| Daisy | Duck | daisyduck@gmail.com| daisyduck99|
-    Then I should be able to log in with the "daisyduck" as uasername and "daisyduck99" as password on the UI
+      | username  | first | last | email               | password    |
+      | peppapig3 | Peppa | Pig | peppapig3@gmail.com | peppapig99 |
+    Then I should be able to log in with the same credentials on the UI
+    And  The firstname, lastname and email also should be correct
