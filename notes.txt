@@ -73,7 +73,7 @@ In Cucumber framework:
            When Cucumber converts the DataTable into corresponding Java data structures (List, Map), it creates
            unmodifiable versions of these data structures. If you need to modify, you need to convert into a modifiable type
 
-           Running tests thru CMD in Cucumber Framework:
+           Running tests thru command line in Cucumber Framework:
 
 
 
