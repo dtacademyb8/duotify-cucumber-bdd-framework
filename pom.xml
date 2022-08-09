@@ -91,7 +91,7 @@
                     <includes>
 
                         <include>**/*CucumberRunner.java</include>
-                        <include>**/*FailedScenariosRunner.java</include>
+<!--                        <include>**/*FailedScenariosRunner.java</include>-->
 
 
 <!--                    when running multiple classes, the class name can be passed thru cmd using the placeholder  -->
