@@ -38,7 +38,7 @@ public class SignUpStepDefs {
         HomePage homePage = new HomePage();
         homePage.clickOnSignUpPageLink();
         Faker faker = new Faker();
-        homePage.enterCredentialsAndClick("",
+        homePage.enterCredentialsAndClick(faker.name().username(),
                 faker.name().firstName(),
                 faker.name().lastName(),
                 faker.internet().emailAddress(),
