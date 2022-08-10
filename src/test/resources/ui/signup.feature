@@ -12,7 +12,7 @@ Feature: User sign up feature
   @smoke @regression @signup @DT_52365
   Scenario: Non-registered user signup positive
 
-    When I navigate to signup page and enter valid credentials
+    When I navigate to signup page and enter valid credential
     Then I should be able to sign up successfully
 
  @signup
