@@ -1,20 +1,17 @@
 package com.videogamedb;
 
-import io.restassured.RestAssured;
+import com.duotify.utilities.ConfigReader;
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
-import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.openqa.selenium.Keys;
 
 import java.util.Random;
 
-import static io.restassured.RestAssured.*;
-import static io.restassured.matcher.RestAssuredMatchers.*;
-import static org.hamcrest.Matchers.*;
+import static io.restassured.RestAssured.baseURI;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.lessThan;
 
-public class TestVideoGameDB {
+public class TestVideoGameDBEndToEndFlow {
 
     static {
         baseURI = "http://ec2-18-191-149-148.us-east-2.compute.amazonaws.com:8080/app";
@@ -32,7 +29,7 @@ public class TestVideoGameDB {
           given().   // request specifications (headers,parameters, body)
                   header("Accept", "application/json").
           when(). log().all(). // request type
-                  get(Endpointz.VIDEOGAME+"").
+                  get(Endpoints.VIDEOGAMES.toString()).
           then(). log().all(). // assertions on Returned Response
                 statusCode(200);
 
@@ -140,6 +137,65 @@ public class TestVideoGameDB {
                 statusCode(201).
                 header("Content-Type", "application/json").
                 body("id", equalTo(12));
+
+
+
+
+
+
+    }
+
+    @Test
+    public void testDeleteRequest(){
+
+
+        given().
+                header("Accept", "application/json").
+                pathParam("videoGameId" , 11).
+
+        when(). log().all().
+                delete(Endpoints.VIDEOGAME_BY_ID+"").
+        then(). log().all().
+                statusCode(200).
+                header("Content-Type", "application/json").
+                body("status", equalTo("Record Deleted Successfully"));
+
+
+
+
+
+
+    }
+
+    @Test
+    public void testPatchRequest(){
+
+        baseURI = "https://api.github.com";
+
+        String loc = "San Fransisco, CA";
+        String name = "Duotify";
+        boolean hire = false;
+        given().
+                header("Accept", "application/vnd.github+json").
+                header("Authorization", "token " + ConfigReader.getProperty("github_bearer_token")).
+                body("{\n" +
+                        "     \"location\": \""+loc+"\",\n" +
+                        "     \"company\": \""+name+"\",\n" +
+                        "     \"hireable\" : "+hire+"\n" +
+                        "}").
+
+
+        when(). log().all().
+                patch("/user").
+        then(). log().all().
+                statusCode(200).
+                header("Content-Type", "application/json; charset=utf-8").
+                header("Server", "GitHub.com").
+//                cookie("logged_in", "no").
+                body("company", equalTo(name)).
+                body("location", equalTo(loc)).
+                body("hireable", equalTo(null));
+
 
 
 

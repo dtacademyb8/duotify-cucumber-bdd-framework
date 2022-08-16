@@ -1,6 +1,20 @@
 package com.videogamedb;
 
-public class Endpoints {
+public enum Endpoints {
 
-    public static final String VIDEOGAMES = "/videogames";
+
+    VIDEOGAMES("/videogames"),
+    VIDEOGAME_BY_ID("/videogames/{videoGameId}");
+
+
+    final String str;
+    Endpoints(String str) {
+       this.str = str;
+
+    }
+
+    @Override
+    public String toString() {
+        return this.str;
+    }
 }
