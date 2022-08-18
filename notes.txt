@@ -266,3 +266,12 @@ In Cucumber framework:
                         Check values for columns which are not accepting null values
                         Null values should not be allowed for the Primary key column
                         Checking for duplicates.
+
+
+
+                 REST ASSURED
+
+
+                 Rest Assured is a Java library that helps us write REST API automation code.
+
+
