@@ -1,6 +1,7 @@
 package com.videogamedb;
 
 import com.duotify.utilities.ConfigReader;
+import com.videogamedb.pojos.User;
 import com.videogamedb.pojos.VideoGame;
 import io.cucumber.java.it.Ma;
 import io.restassured.common.mapper.TypeRef;
@@ -258,6 +259,46 @@ public class Deserialization {
                 });
 
         System.out.println(returnedAsListOfVidoeoGames);
+
+
+    }
+
+
+    @Test
+    public void DeserializeAsUserPojo(){
+
+        baseURI = "https://api.github.com";
+
+        String loc = "San Fransisco, CA";
+        String name = "Duotify";
+        boolean hire = false;
+        User responseAsUserPojo = given().
+                header("Accept", "application/vnd.github+json").
+                header("Authorization", "token " + ConfigReader.getProperty("github_bearer_token")).
+                body("{\n" +
+                        "     \"location\": \"" + loc + "\",\n" +
+                        "     \"company\": \"" + name + "\",\n" +
+                        "     \"hireable\" : " + hire + "\n" +
+                        "}").
+
+
+                when().log().all().
+                patch("/user").
+                then().log().all().
+                statusCode(200).
+                header("Content-Type", "application/json; charset=utf-8").
+                header("Server", "GitHub.com").
+//                cookie("logged_in", "no").
+        body("company", equalTo(name)).
+                body("location", equalTo(loc)).
+                body("hireable", equalTo(null)).extract().as(new TypeRef<User>() {
+                });
+
+
+        System.out.println(responseAsUserPojo);
+
+        Integer space = responseAsUserPojo.getPlan().getSpace();
+
 
 
     }
