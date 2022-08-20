@@ -1,6 +1,6 @@
 Feature: Testing GitHub API
 
-  @api
+
   Scenario: Verify User info update with Patch request
 
     Given The Base URI is set
@@ -17,3 +17,41 @@ Feature: Testing GitHub API
       | location     | San Fransisco, CA               |
       | company      | Duotify                         |
       | hireable     | null                            |
+
+
+
+  Scenario: Verify Users endpoint results count
+    Given The Base URI is set
+    And The following headers are added
+        |Accept| application/vnd.github+json|
+
+    When I send a GET request to users endpoint
+    Then The response should have 30 users
+
+
+  Scenario: Verify Users endpoint results count
+
+    Given The following headers are added
+      |Accept| application/vnd.github+json|
+    And the query parameter "per_page" is set to 60
+    When I send a GET request to users endpoint
+    Then The response should have 60 users
+
+
+
+  Scenario: Verify Users endpoint per_page query param
+
+    Given The following headers are added
+      |Accept| application/vnd.github+json|
+    And the query parameter "per_page" is set to 60
+    When I send a GET request to users endpoint
+    Then The response should have 60 users
+
+  @api
+  Scenario: Verify Users endpoint since query param
+
+    Given The following headers are added
+      |Accept| application/vnd.github+json|
+    And the query parameter "since" is set to 106641159
+    When I send a GET request to users endpoint
+    Then The response payload should contain ids greater than 106641159

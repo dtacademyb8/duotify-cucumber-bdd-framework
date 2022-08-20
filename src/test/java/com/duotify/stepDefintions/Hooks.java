@@ -1,8 +1,10 @@
 package com.duotify.stepDefintions;
 
+import com.duotify.utilities.ConfigReader;
 import com.duotify.utilities.DBUtils;
 import com.duotify.utilities.Driver;
 import io.cucumber.java.*;
+import io.restassured.RestAssured;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
@@ -11,7 +13,7 @@ import java.time.Duration;
 
 public class Hooks {
 
-    @BeforeAll   // runs once before all scenarios, must be static
+    @BeforeAll    // runs once before all scenarios, must be static
     public static void setupDb(){
         DBUtils.createConnection();
     }
@@ -21,12 +23,17 @@ public class Hooks {
           DBUtils.close();
     }
 
-    @Before ("not @db_only")   // runs before each scenario
+    @Before ("not @api")   // runs before each scenario
     public void setup(){
 
 
         Driver.getDriver().manage().window().maximize();
         Driver.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+    }
+
+    @Before ("@api")
+    public void setupApi(){
+        RestAssured.baseURI = ConfigReader.getProperty("base_uri");
     }
 
 
@@ -39,7 +46,7 @@ public class Hooks {
 
 
 
-    @After  ("not @db_only") // runs after each scenario
+    @After  ("not @api") // runs after each scenario
     public void tearDown(Scenario scenario){
 
         if(scenario.isFailed()){
